@@ -1,9 +1,11 @@
 export const state = () => ({
     counter: []
+    //counter: 0
   })
   
   export const mutations = {
     setCounter: (state, list) => (state.counter = list),
+    //setCounter: (state) => (state.counter),
     increment(state) {
       state.counter++
     }
