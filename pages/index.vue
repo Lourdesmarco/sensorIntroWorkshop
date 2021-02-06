@@ -1,25 +1,46 @@
 <template>
-    <main @click="count += 1">          
-      <h1 class="no-select" :style="cssVars">Sensor<br>Variable<br>Font<br></h1>
+    <main @click="increment()">  
+      <div class="pointer" v-if="counter == 0">
+        <img src="/pointer.png" alt="Pixel icon hand">
+        <p>We need your clicks to start!</p>
+      </div>        
+      <h1 v-else class="no-select" :style="cssVars">Sensor<br>Variable<br>Font<br></h1>
       <h2 class="no-select">Workshop</h2>     
-      <p>{{ count }}</p> 
+      <p>{{ counter }}</p> 
+
+      <progress-bar :counter="counter" />
     </main>
 </template>
 
 <script>
+import progressBar from '../components/ProgressBar.vue'
+
+
 export default {
-  data() {
-    return {
-      count: 0,
-    }
-  },
+  components: {
+    progressBar
+  },  
+  // data: function() {
+  //   return {
+  //     contador: data.counter, 
+  //   };
+  // },
   computed: {
+    counter () {
+      return this.$store.state.counter
+    },
     cssVars() {
       return {
-        '--BACK': this.count,        
+        '--BACK': this.counter,
       }
     }
+  },
+  methods: {
+    increment(){
+      this.$store.commit('increment')
+    }
   }
+
 
 }
 </script>
@@ -66,15 +87,25 @@ h1{
     font-family: "Grid";
     font-variation-settings: "wght" 1, "BACK" var(--BACK), "ESHP" 3;
     color: #00AEEF;
-    font-size: 10em;
+    font-size: 9em;
     text-align: center;
 
 }
 h2{
     font-family: "Grid";
     font-variation-settings: "wght" 623, "BACK" 140, "ESHP" 4;
+    padding-top: 2em;
 }
 
+.pointer{
+  text-align: center;
+}
+.pointer img{
+  max-width: 55%;
+}
+.pointer p{
+  padding-top: 1em;
+}
 @keyframes backgroundColorPalette {
     0% {
       background: #00AEEF;
