@@ -20,7 +20,8 @@ collections:
       - { label: 'Description', name: 'description', widget: 'string' }
       - { label: 'Body', name: 'body', widget: 'markdown' }
   - name: 'counter'
-    label: "Click Count"    
+    label: "Click Count"
+    folder: 'content/counter'
     format: 'frontmatter'
     fields:
       - { label: 'counter', name: 'counter', widget: "number", default: 0, value_type: "int", min: 0, max: 900 }
