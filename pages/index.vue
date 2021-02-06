@@ -31,6 +31,7 @@ export default {
   // },
   computed: {
     counter () {
+      console.log(this.$store.state.counter)
       return this.$store.state.counter
     },
     cssVars() {
