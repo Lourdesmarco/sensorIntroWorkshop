@@ -25,7 +25,7 @@ export default {
     }
   },
   created() {
-    this.interval = setInterval(() => this.refresh(), 1000);
+    this.interval = setInterval(() => this.refresh(), 500);
   },
   async fetch() {
     this.counter = await fetch(
