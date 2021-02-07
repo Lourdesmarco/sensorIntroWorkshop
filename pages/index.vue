@@ -24,6 +24,9 @@ export default {
       counter: 0
     }
   },
+  created() {
+    this.interval = setInterval(() => this.refresh(), 1000);
+  },
   async fetch() {
     this.counter = await fetch(
       'https://api.countapi.xyz/get/sensorIntroWorkshop/count'
@@ -37,12 +40,17 @@ export default {
     }
   },
   methods: {
+    refresh() {
+      this.$fetch()
+    },
     async increment(){
       if(this.counter.value < 900){
         this.counter = await fetch(
         'https://api.countapi.xyz/update/sensorIntroWorkshop/count/?amount=1'
         ).then(res => res.json())
+        
       }
+      
     }
   }
 }
