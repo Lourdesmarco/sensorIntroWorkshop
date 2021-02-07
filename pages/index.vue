@@ -1,44 +1,69 @@
 <template>
     <main @click="increment()">  
-      <div class="pointer" v-if="counter == 0">
+      <div class="pointer" v-if="counter.value == 0">
         <img src="/pointer.png" alt="Pixel icon hand">
         <p>We need your clicks to start!</p>
       </div>        
       <h1 v-else class="no-select" :style="cssVars">Sensor<br>Variable<br>Font<br></h1>
       <h2 class="no-select">Workshop</h2>     
-      <p>{{ counter }}</p> 
+      <p>{{ counter.value }}</p> 
 
-      <progress-bar :counter="counter" />
+      <progress-bar :counter="counter.value" />
     </main>
 </template>
 
 <script>
 import progressBar from '../components/ProgressBar.vue'
 
-
 export default {
- 
   components: {
     progressBar
   },  
+  data() {
+    return {
+      counter: 0
+    }
+  },
+  async fetch() {
+    this.counter = await fetch(
+      'https://api.countapi.xyz/get/sensorIntroWorkshop/count'
+    ).then(res => res.json())
+  },
   computed: {
-    counter () {
-      return this.$store.state.counter
-    },
     cssVars() {
       return {
-        '--BACK': this.counter,
+        '--BACK': this.counter.value,
       }
     }
   },
   methods: {
-    increment(){
-      this.$store.commit('increment')
+    async increment(){
+      if(this.counter.value < 900){
+        this.counter = await fetch(
+        'https://api.countapi.xyz/update/sensorIntroWorkshop/count/?amount=1'
+        ).then(res => res.json())
+      }
     }
   }
-
-
 }
+
+// API doc
+// ** create
+// https://api.countapi.xyz/create?namespace=sensorIntroWorkshop&key=counter&value=0
+// https://api.countapi.xyz/create?namespace=sensorIntroWorkshop&key=count&enable_reset=1&value=0
+
+// ** get
+// https://api.countapi.xyz/get/sensorIntroWorkshop/counter
+// https://api.countapi.xyz/get/sensorIntroWorkshop/count
+
+// ** update (+1)
+// https://api.countapi.xyz/update/sensorIntroWorkshop/counter/?amount=1
+// https://api.countapi.xyz/update/sensorIntroWorkshop/count/?amount=1
+
+// ** set (to reset)
+// https://api.countapi.xyz/set/sensorIntroWorkshop/counter?value=0
+// https://api.countapi.xyz/set/sensorIntroWorkshop/count?value=0
+
 </script>
 
 <style>
