@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "nuxt",
-    "build": "node scripts/generateDb && nuxt build",
+    "build": "nuxt build",
     "start": "nuxt start",
-    "generate": "node scripts/generateDb && nuxt generate"
+    "generate": "nuxt generate"
   },
   "dependencies": {
     "core-js": "^3.8.3",
