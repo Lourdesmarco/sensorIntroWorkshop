@@ -6,7 +6,7 @@
       </div>        
       <h1 v-else class="no-select" :style="cssVars">Sensor<br>Variable<br>Font<br></h1>
       <h2 class="no-select">Workshop</h2>     
-      <p class="no-select">{{ counter.value }}</p> 
+      <!-- <p class="no-select">{{ counter.value }}</p>  -->
 
       <progress-bar :counter="counter.value" />
     </main>
